@@ -20,9 +20,33 @@ From these values we determined that the nearest approximation of these channels
  In the case of multiple threshold values it is the ranges between these values that have the same value assigned to them. Thresholding an image results in a binary image that can then be used as a mask to select the desired parts of an image and hide other areas. The differing cloud and surface level pixel values in the VIS 0.6 and VIS 0.8 channels meant that we were able to set threshold values to create masks to cover (and therefore remove) the cloud cover from our images. Due to the variation in the pixel values across the Earth's surface depending on latitude and longitude, a smaller area of 200x200 pixels was selected upon which to apply this cloud removal method. The threshold values were initially chosen via inspection of the RGB pixel values of the cloudy pixels in the plotted RGB image and were further adjusted once the masks were applied. This was done by setting threshold ranges for each RGB channel and creating a two dimensional mask array of ones,  in which the pixel's were set to 0 if the corresponding pixels fell within the threshold ranges in all three channels. A three dimensional mask was then created by stacking three copies of the two dimensional mask, which was then multiplied element wise with the RGB image channels to produce a cloud free image as shown in Fig.~\ref{}. 
  
 \subsubsection{Otsu's Method for Thresholding}
+\begin{figure}
+\centering
+    \includegraphics[width=0.6\textwidth]{flowchart_otsu.png}
+    \caption{\label{diagram}}
+\end{figure}
+
 As can be seen in Fig.~\ref{} although the threshold values chosen were successful at removing most of the cloud cover there are still areas where cloudy pixels are present and better threshold values are required to remove these. There are multiple methods that analytically determine "optimum" threshold values for image segmentation based off of different definitions of goodness. One such method is Otsu's method. This is an automatic global thresholding technique that calculates the optimum threshold values for each image so that the measure of separability is maximised and the spread of pixel levels is minimised for the foreground (cloudy) and background (cloud free) pixels.
 
 
+
+\begin{equation}
+p_{i}=\frac{n_{i}}{M N}
+\end{equation}
+
+
+\begin{equation}
+P_{1}(k)=\sum_{i=0}^{k} p_{i}
+\end{equation}
+
+\begin{equation}
+m(k)=\sum_{i=0}^{k} i p_{i}
+\end{equation}
+
+
+\begin{equation}
+\sigma_{B}^{2}(k)=\frac{\left(m_{G} P_{1}(k)-m(k)\right)^{2}}{P_{1}(k)\left(1-P_{1}(k)\right)}
+\end{equation}
 
 \subsubsection{Neural Networks and Deep Learning}
 
