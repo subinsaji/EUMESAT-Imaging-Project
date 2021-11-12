@@ -6,8 +6,7 @@
 \subsection{A Brief History of Satellite Remote Sensing and Landsat}
 In the early 1800s, photosensitive chemicals were proposed for use in experiments to capture images. Several decades later in 1839 the preliminary results of these investigations were publicly reported by one of the founding fathers of photography, Louis Daguerre. This date forms the convenient arbitrary milestone for the birth of photography. The first aerial photograph milestone has generally been accredited to Gaspard F\'elix Tournachon, in 1858 when he acquired an aerial photograph from a camera tethered to a balloon in France. Over the years, numerous improvements were made to photographic technology, balloons and kites \cite{campbell2011introduction}. 
 \par
-In World War I, cameras were placed on aeroplanes for reconnaissance. Then, during the height of Cold War, the U.S. Government developed imaging satellites using specialised photographic film. An example of this is the CORONA photo-satellite reconnaissance system launched in 1960 due to the suspension of U-2 spy plane. Figure 1 shows an artist's impression of  the main reconnaissance systems of CORONA after deployment \cite{CORONA}. CORONA Reconnaissance System's main objectives were to map, chart and survey areas of interest in enemy territories. The system is able to cover
-2.4$\times$10$^{7}$ $\mathrm{~km}^{2}$ per mission with a resolution of 2-3 meters \cite{CORONA}. The life of the mission is 19 days, after which the film rolled into a recovery vehicle and jettisoned back to Earth for collection
+In World War I, cameras were placed on aeroplanes for reconnaissance. Then, during the height of Cold War, the U.S. Government developed imaging satellites using specialised photographic film. An example of this is the CORONA photo-satellite reconnaissance system launched in 1960 due to the suspension of U-2 spy plane. Fig.~\ref{Fig:CORONA} shows an artist's impression of  the main reconnaissance systems of CORONA after deployment \cite{CORONA}. CORONA Reconnaissance System's main objectives were to map, chart and survey areas of interest in enemy territories. The system is able to cover 2.4$\times$10$^{7}$ $\mathrm{~km}^{2}$ per mission with a resolution of 2-3 meters \cite{CORONA}. The life of the mission is 19 days, after which the film rolled into a recovery vehicle and jettisoned back to Earth for collection
 
 
 %Modern day remote sensing and satellite imaging goes beyond military or strategic applications. As of September 1$^{st}$ 2021, there are 4,550 known operational satellites of which 1030 are for Earth observation \cite{Sat_Data}. Satellite imaging has a major applications in a wide range of industries from monitoring crop growth to forecasting weather.
@@ -20,6 +19,7 @@ In World War I, cameras were placed on aeroplanes for reconnaissance. Then, duri
 \includegraphics[totalheight=0.3\textheight]{CORONA REC .png}
 \caption{(Top) Main components of the CORONA system showing the recovery vehicles and the main cassette for image acquisition . (Bottom). Artists impression of the system in action. Photo Credits: Centre for the Study of National Reconnaissance (CSNR) and National Reconnaissance Office (NRO). \cite{CORONA}
 }
+\label{Fig:CORONA}
 \end{figure}
 
 Landsat 1 (originally named Earth Resources Technology Satellite-1) was launched in 1972. This was the first of many Landsat observation satellites. For the first time, Landsat
@@ -35,6 +35,7 @@ Landsat captured images in several regions of the electromagnetic spectrum, whic
 \includegraphics[totalheight=0.2\textheight]{Landsat1.jpg}
 \caption{Landsat 1 was launched on July 23, 1972. Photo Credits: \cite{landsat1}
 }
+\label{Fig:LANDSAT}
 \end{figure}
 
 By the early 1980s, a second generation of instruments collecting satellite imagery provided far greater spatial resolution of 30, 20 and 10 meters. Eventually, by the late 1990s, images were capable of resolving at meter and  sub-meter levels \cite{campbell2011introduction}.
@@ -50,7 +51,7 @@ As of September 1st 2021, there are 4,550 known operational satellites, of which
 \subsection{EUMETSAT - Meteosat 9}
 
 
-In this project, data from one of EUMETSAT's weather satellite, Meteosat-9, is used. The satellite is jointly operated by the European Space Agency (ESA) and The European Organisation for the Exploitation of Meteorological Satellites (EUMETSAT). Meteosat-9 contains 12 spectral bands that covers the visible and infrared wavelengths. This project only uses three bands; one infrared and two visible bands. The satellite provides images over continental Africa every 15 minutes with a resolution of 5$\times$5 $\mathrm{~km}^{2}$ \cite{Meteosat9}. More information of Meteosat-9's twelve imaging bands are given in the Table 1 below.
+In this project, data from one of EUMETSAT's weather satellite, Meteosat-9, is used. The satellite is jointly operated by the European Space Agency (ESA) and The European Organisation for the Exploitation of Meteorological Satellites (EUMETSAT). Meteosat-9 contains 12 spectral bands that covers the visible and infrared wavelengths. This project only uses three bands; one infrared and two visible bands. The satellite provides images over continental Africa every 15 minutes with a resolution of 5$\times$5$\mathrm{~km}^{2}$ \cite{Meteosat9}. More information of Meteosat-9's twelve imaging bands are given in the Table.~\ref{Table1}.
 
 \begin{table}[H]
 \centering
@@ -72,6 +73,7 @@ $0.6-0.9 \mu \mathrm{m}$ \\
 \hline
 \end{tabular}
 \caption{\label{tab:Table1} Channel details of the Spinning Enhanced Visible Infra-Red Imager (SEVIRI). The instrument is sensitive to twelve channels (eleven narrow-bandwidth in the infrared and one high-resolution broad-bandwidth in the visible spectrum). Data from \cite{Table1}}
+\label{Table1}
 \end{table}
 
 
