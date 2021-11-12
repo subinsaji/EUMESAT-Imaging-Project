@@ -17,11 +17,18 @@ From these values we determined that the nearest approximation of these channels
 0 & otherwise
 \end{matrix}
  \end{equation}
- In the case of multiple threshold values it is the ranges between these values that have the same value assigned to them. Thresholding an image results in a binary image that can then be used as a mask to select the desired parts of an image and hide other areas. The differing cloud and surface level pixel values in the VIS 0.6 and VIS 0.8 channels meant that we were able to set threshold values to create masks to cover (and therefore remove) the cloud cover from our images. Due to the variation in the pixel values across the Earth's surface depending on latitude and longitude, a smaller area of 200x200 pixels was selected upon which to apply this cloud removal method. The threshold values were initially chosen via inspection of the RGB pixel values of the cloudy pixels in the plotted RGB image, and were further adjusted once the masks were applied. This was done by setting threshold ranges for each RGB channel and creating a two dimensional mask array of 1s,  in which the pixel's were set to 0 if the corresponding pixel values fell within the threshold ranges in all three channels. A three dimensional mask was then created by stacking three copies of this same two dimensional mask, which was then multiplied element wise with the RGB image channels to produce a cloud free image as shown in Fig.~\ref{}. 
+ 
+ In the case of multiple threshold values it is the ranges between these values that have the same value assigned to them. Thresholding an image results in a binary image that can then be used as a mask to select the desired parts of an image and hide other areas. The differing cloud and surface level pixel values in the VIS 0.6 and VIS 0.8 channels meant that we were able to set threshold values to create masks to cover (and therefore remove) the cloud cover from our images. Due to the variation in the pixel values across the Earth's surface depending on latitude and longitude, a smaller area of 200x200 pixels was selected upon which to apply this cloud removal method. The threshold values were initially chosen via inspection of the RGB pixel values of the cloudy pixels in the plotted RGB image, and were further adjusted once the masks were applied. This was done by setting threshold ranges for each RGB channel and creating a two dimensional mask array of 1s,  in which the pixel's were set to 0 if the corresponding pixel values fell within the threshold ranges in all three channels. A three dimensional mask was then created by stacking three copies of this same two dimensional mask, which was then multiplied element wise with the RGB image channels to produce a cloud free image as shown in Fig.~\ref{fig:iterav}. 
  
 \subsubsection{Otsu's Method for Thresholding}
 
-As can be seen in Fig.~\ref{} although the threshold values chosen were successful at removing most of the cloud cover there are still areas where cloudy pixels are present and better threshold values are required to remove these. There are multiple methods that can analytically determine "optimum" threshold values for image segmentation based off of different definitions of "goodness". One such method is Otsu's method. This is an automatic global thresholding technique that calculates the optimum threshold values for each image so that the measure of separability is maximised and the spread of pixel levels is minimised for the foreground (cloudy) and background (cloud free) pixels. Such algorithms usually consist of the computation of optimum threshold values followed by the replacement of image pixels by 0 and 1 depending on where they fall in relation to the threshold value/s. This thresholded mask can then be applied to the original image to remove the unwanted pixel values.
+\begin{wrapfigure}{r}{0.5\textwidth}
+%\centering
+    \includegraphics[width=0.6\textwidth]{flowchart_otsu.png}
+    \caption{\label{fig:flowchart} Flowchart of steps taken to compute the optimum threshold values as determined using the Otsu thresholding method}
+\end{wrapfigure}
+
+As can be seen in Fig.~\ref{fig:iterav} although the threshold values chosen were successful at removing most of the cloud cover there are still areas where cloudy pixels are present and better threshold values are required to remove these. There are multiple methods that can analytically determine "optimum" threshold values for image segmentation based off of different definitions of "goodness". One such method is Otsu's method. This is an automatic global thresholding technique that calculates the optimum threshold values for each image so that the measure of separability is maximised and the spread of pixel levels is minimised for the foreground (cloudy) and background (cloud free) pixels. Such algorithms usually consist of the computation of optimum threshold values followed by the replacement of image pixels by 0 and 1 depending on where they fall in relation to the threshold value/s. This thresholded mask can then be applied to the original image to remove the unwanted pixel values.
 
 \par
 The interpixel variance (the measure by which separability is computed) for each threshold value can be calculated by going through the steps shown in Fig.~\ref{fig:flowchart}. The equation used to calculate this is given by Eq.~\ref{eq:interpixvar}
@@ -29,6 +36,7 @@ The interpixel variance (the measure by which separability is computed) for each
 \begin{equation}\label{eq:interpixvar}
 \sigma_{B}^{2}(k)=\frac{\left(m_{G} P_{1}(k)-m(k)\right)^{2}}{P_{1}(k)\left(1-P_{1}(k)\right)}
 \end{equation}
+
 
 where $\sigma_{B}^{2}(k)$ is the interpixel variance for threshold value $k$, $m_G$ is the global mean of the pixel values, $P_{1}(k)$ is the cumulative probability and $m(k)$ is the cumulative mean of the pixel values up to the threshold pixel value $k$.
 
@@ -39,6 +47,7 @@ The first step is this calculation was to plot a histogram of the distribution o
 p_{i}=\frac{n_{i}}{N}
 \end{equation}
 
+
 where $p_{i}$ is the probability of occurrence of pixel value $i$, $n_{i}$ is the frequency of occurrence, and $N$ is the total number of pixels.
 
 \par
@@ -48,17 +57,13 @@ The cumulative probability for each threshold value, otherwise expressed as the 
 P_{1}(k)=\sum_{i=0}^{k} p_{i}
 \end{equation}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-%\centering
-    \includegraphics[width=0.6\textwidth]{flowchart_otsu.png}
-    \caption{\label{fig:flowchart}}
-\end{wrapfigure}
 
 with the cumulative mean being subsequently calculated from Eq.~\ref{eq:cummean}.
 
 \begin{equation}\label{eq:cummean}
 m(k)=\sum_{i=0}^{k} i p_{i}
 \end{equation}
+
 
 where $i$ is the pixel value.
 
@@ -68,6 +73,7 @@ This was done for multiple different areas over the Earth's surface to test the 
 \begin{equation}\label{eq:sepm}
     \eta = \frac{\sigma_{B,max}^{2}}{\sigma_{G}^{2}}
 \end{equation}
+
 
 where $\eta$ is the separability measure, $\sigma_{B,max}^{2}$ is the maximum interpixel variance (the interpixel variance of the selected threshold value) and $\sigma_{G}^{2}$ is the interpixel variance of all the pixels. The closer the separability measure is to 1, the better the chosen threshold value is as maximising the interpixel variance.
 
@@ -90,6 +96,7 @@ Our newly cloud free images allow us to conduct further analysis of the Earth's 
 \begin{equation}\label{eq:ndvi}
     NDVI = \frac{R_{NIR}-R_{VIS}}{R_{NIR}+R_{VIS}}
 \end{equation}
+
 
 where $R_{NIR}$ is the near-infrared reflectance and $R_{VIS}$ is the red reflectance.
 Healthy green vegetation is normally indicated by high positive NDVI values, while vegetation free surfaces such as water, ice, snow and clouds tend to have negative NDVI values, and deserts and bare terrain have values close to 0.
